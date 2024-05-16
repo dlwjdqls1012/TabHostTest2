@@ -11,11 +11,12 @@ import androidx.appcompat.app.ActionBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 
-class MainActivity : AppCompatActivity() , ActionBar.TabListener{
+class MainActivity : AppCompatActivity() , ActionBar.TabListener {
     lateinit var tab1 : ActionBar.Tab
     lateinit var tab2 : ActionBar.Tab
     lateinit var tab3 : ActionBar.Tab
-    var myFrags = arrayOfNulls<MyFragment>(3)
+
+    var arrFags = arrayOfNulls<MyFragment>(3)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,48 +24,48 @@ class MainActivity : AppCompatActivity() , ActionBar.TabListener{
         bar!!.navigationMode = ActionBar.NAVIGATION_MODE_TABS
 
         tab1 = bar.newTab()
-        tab1.text = "FirstTab"
+        tab1.text = "First Tab"
         tab1.setTabListener(this)
         bar.addTab(tab1)
 
         tab2 = bar.newTab()
-        tab2.text = "SecondTab"
+        tab2.text = "Second Tab"
         tab2.setTabListener(this)
         bar.addTab(tab2)
 
         tab3 = bar.newTab()
-        tab3.text = "ThirdTab"
+        tab3.text = "Third Tab"
         tab3.setTabListener(this)
         bar.addTab(tab3)
+
 
     }
 
     override fun onTabSelected(tab: ActionBar.Tab?, ft: FragmentTransaction?) {
         var fragment : MyFragment? = null
 
-        if(arrFrags[tab!!.position] == null){
+        if(arrFags[tab!!.position] == null){
             fragment = MyFragment()
             val data = Bundle()
             data.putString("tabName", tab.text.toString())
             fragment.arguments = data
-            arrFrgs[tab.position] = fragment
-        }else{
-            fragment = arrFrags[tab.position]
+            arrFags[tab.position] = fragment
+        } else {
+            fragment = arrFags[tab.position]
         }
-
         ft!!.replace(android.R.id.content, fragment!!)
     }
 
     override fun onTabUnselected(tab: ActionBar.Tab?, ft: FragmentTransaction?) {
-        TODO("Not yet implemented")
+
     }
 
     override fun onTabReselected(tab: ActionBar.Tab?, ft: FragmentTransaction?) {
-        TODO("Not yet implemented")
+
     }
 
-    //탭을 선택하면 변경되는 Content로 Fragment를 사용
-    class MyFragment : Fragment(){
+    //      탭을 선택했을 때 변경되는 컨텐트로 프레그먼트 사용
+    class MyFragment : Fragment() {
         var tabName : String? = null
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
@@ -78,11 +79,11 @@ class MainActivity : AppCompatActivity() , ActionBar.TabListener{
             linear.layoutParams = params
             linear.orientation = LinearLayout.VERTICAL
 
-            if(tabName === "FirstTab")
+            if(tabName === "First Tab")
                 linear.setBackgroundColor(Color.MAGENTA)
-            if(tabName === "SecondTab")
+            if(tabName === "Second Tab")
                 linear.setBackgroundColor(Color.YELLOW)
-            if(tabName === "ThirdTab")
+            if(tabName === "Third Tab")
                 linear.setBackgroundColor(Color.GREEN)
 
             return linear
